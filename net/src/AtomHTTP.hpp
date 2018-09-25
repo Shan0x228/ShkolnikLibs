@@ -4,7 +4,7 @@
 * Contacts:  Discord Shan0x228#5690                                                                                  *
 * YouTube :  https://www.youtube.com/channel/UCmJT3IfHtpFJyln2UdABBKg                                                *
 * Supported platforms : UNIX(macOS, Linux...), Windows                                                               *
-* Version :  1.5                                                                                                     *
+* Version :  2.0                                                                                                     *
 *********************************************************************************************************************/
 
 #ifdef _WIN32
