@@ -4,7 +4,7 @@
 * Contacts:  Discord Shan0x228#5690                                                                                  *
 * YouTube :  https://www.youtube.com/channel/UCmJT3IfHtpFJyln2UdABBKg                                                *
 * Supported platforms : UNIX(macOS, Linux...), Windows                                                               *
-* Version :  2.0                                                                                                     *
+* Version :  1.5                                                                                                     *
 *********************************************************************************************************************/
 
 #ifdef _WIN32
@@ -49,6 +49,7 @@ namespace Shkolnik
       std::vector<std::string>  http_headers;    // http headers request
       std::string               content;         // full response content(without headers)
       std::string               data;            // response body(with headers)
+	  std::string				req_data;		 // request data
 
     // Private section with native sockets variables
     public:
@@ -79,6 +80,9 @@ namespace Shkolnik
 
       // Method add custom header to request
       void        add_header(std::string param);
+
+	  // Method add data(body) for request
+	  void		  add_request_body(std::string data);
 
       // Method send request to server and return full response(with headers)
       std::string send_request();
@@ -184,6 +188,12 @@ void Shkolnik::net::AtomHTTP::add_header(std::string param)
   } 
 }
 
+// Method add data(body) for request
+void Shkolnik::net::AtomHTTP::add_request_body(std::string data)
+{
+	this->req_data = data;
+}
+
 // Method send request to server and return full response(with headers)
 std::string Shkolnik::net::AtomHTTP::send_request()
 {
@@ -196,6 +206,10 @@ std::string Shkolnik::net::AtomHTTP::send_request()
   // fill with all headers
   for (const auto x : this->http_headers)
     req += x;
+
+  // Adding request data(body without headers)
+  if (!this->req_data.empty())
+	req += this->req_data;
 
   // send by socket for server
   int bytes = send(this->socket_handle, req.c_str(), req.length(), 0);
